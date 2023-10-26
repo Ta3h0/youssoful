@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유쏘풀::본연의 아름다움</title>
+
+    <link rel="stylesheet" type="text/css" href="lib/carouselTicker.css" media="screen">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/index.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="lib/jquery-3.7.0.min.js"></script>
+
+    <script>
+        window.onload = () => {
+            var swiper = new Swiper(".mySwiper", {
+                spaceBetween: 30,
+                centeredSlides: true,
+                loop: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+            });
+        }; //js end
+        $(function () {
+
+            //새로고침시 .main_visual 다시 보이고 스크롤 탑으로 올라가기
+            setTimeout(function () {
+
+                scrollTo(0, 0);
+
+            }, 100);
+            let mainVisual = $('.main_visual');
+
+            mainVisual.css({
+                'display': 'flex'
+            })
+
+
+            //휠 페이징을 위한 카운트 변수
+            let c = 0;
+
+            //타이머 변수
+            let timer = true;
+
+            wrap.addEventListener('wheel', function (event) {// addEventListener은 중복으로 사용 가능.(활용성이 더 높음. / 상위선언부터 순차적으로 시작)
+                //deltaY = 휠 동작을 인식함.
+                let eventY = event.deltaY;
+                console.log(eventY);
+
+
+                if ($('.main_visual').css('display') == 'flex') {
+                    if (timer) {
+                        // 휠 일정시간동안 막기
+                        timer = false;
+                        setTimeout(function () {
+                            timer = true;
+                        }, 1300)
+
+
+                        let mainImg = $('.main_visual .center_img figure img');
+                        let pageCount = $('.main_visual .paging span');
+
+                        function slide() {
+
+                            mainImg.slideUp(1000)
+                            mainImg.eq(c).slideDown(800)
+                            pageCount.removeClass('on')
+                            pageCount.eq(c).addClass('on')
+
+                        }
+
+                        if (c <= 0) {
+                            if (eventY < 0) { // 0일때 휠 올리기
+                                c = 3;
+
+                                slide();
+
+                            } else if (eventY > 0) { // 0일때 휠 내리기
+                                c++;
+
+                                mainImg.slideUp(1000)
+                                mainImg.eq(c).css({ 'display': 'block' })
+                                mainImg.eq(c).slideDown(800)
+                                pageCount.removeClass('on')
+                                pageCount.eq(c).addClass('on')
+
+                            }
+                        } else if (c >= 3) {
+                            if (eventY < 0) { // 3일때 휠 올리기
+                                c--;
+
+                                slide();
+
+                            } else if (eventY > 0) { // 3일때 휠 내리기
+                                c = 0;
+
+                                mainImg.slideUp(1000)
+                                mainImg.eq(c).slideDown(800)
+                                pageCount.removeClass('on')
+                                pageCount.eq(c).addClass('on')
+
+                            }
+                        } else {
+                            if (eventY < 0) { //휠 올리기
+                                c--;
+
+
+                                slide();
+
+                            } else if (eventY > 0) { //휠 내리기
+                                c++;
+
+                                mainImg.slideUp(1000)
+                                mainImg.eq(c).css({ 'display': 'block' })
+                                mainImg.eq(c).slideDown(800)
+                                pageCount.removeClass('on')
+                                pageCount.eq(c).addClass('on')
+
+                            }
+                        }
+                    }
+
+                }
+
+                let scroll = $(window).scrollTop();
+
+                console.log(scroll)
+
+                if (mainVisual.css('display') == 'none') {
+                    if (scroll > 0) {
+                        $('header').css({
+                            'height': '60px',
+                            'background-color': '#b79d85'
+                        })
+                        $('header .inner .gnb .depth01 .depth02').css({
+                            'top': '60px'
+                        })
+                    } else {
+                        $('header').css({
+                            'height': '80px',
+                            'background-color': '#b79d85ad'
+                        })
+                        $('header .inner .gnb .depth01 .depth02').css({
+                            'top': '80px'
+                        })
+                    }
+                }
+
+
+            })
+
+            //1차메뉴에 mouseenter했을때 2차메뉴 나오게 하기
+            $('.pc .gnb .depth01 > a').mouseenter(function () {
+                $('.pc .gnb .depth01 .depth02').stop().slideUp();
+                $(this).next().stop().slideDown();
+            });
+
+            //1차메뉴에 mouseleave했을때 2차메뉴 들어가게
+            $('.pc .gnb .depth01').mouseleave(function () {
+                $('.pc .gnb .depth01 .depth02').stop().slideUp();
+            });
+
+            //1차메뉴에 마우스 올렸을 때 한글로 번역되게 만들기
+            $('.pc .gnb .depth01').mouseenter(function () {
+                let langKo = ['스토어', '브랜드', '고객지원', '오프라인 매장'];
+                $('.pc .gnb .depth01 > a').stop().eq($(this).index()).text(langKo[$(this).index()]);
+            })
+
+            //1차메뉴에 마우스 떨어졌을 때 다시 돌아오게
+            $('.pc .gnb .depth01').mouseleave(function () {
+                let langKo = ['Store', 'Brand', 'Support', 'Offline shop'];
+                $('.pc .gnb .depth01 > a').stop().eq($(this).index()).text(langKo[$(this).index()]);
+            })
+
+            $('.pc .gnb .depth01').mouseleave(function () {
+                $('.pc .gnb .depth01 .depth02').stop().slideUp();
+            });
+
+            //2차메뉴에 mouseenter했을때 3차메뉴 나오게 하기
+            $('header .inner .gnb .depth01 .depth02 > li > a').mouseenter(function () {
+                $('.pc .gnb .depth01 .depth02 .depth03').stop().hide();
+                $(this).stop().siblings().show();
+            })
+
+            //검색버튼 눌렀을때 검색 창 나오게하기
+            $('header .inner .other li').eq(2).click(function () {
+
+                $('.search_tap_bg').css({
+                    'z-index': '100',
+                    'opacity': '1'
+                });
+            })
+
+
+            //main_visual에 paging ball 클릭했을때 해당하는 이미지가 보이게 하기
+            $('.main_visual .paging span').click(function () {
+
+                if (timer) {
+                    // 클릭 일정시간동안 막기
+                    timer = false;
+                    setTimeout(function () {
+                        timer = true;
+                    }, 1300)
+                }
+
+                console.log();
+
+                $('.main_visual .center_img img').stop().slideUp(1000);
+                $('.main_visual .center_img img').eq($(this).index()).stop().slideDown(800);
+
+                $('.main_visual .paging span').removeClass('on');
+                $('.main_visual .paging span').eq($(this).index()).addClass('on');
+
+            });
+
+
+            //메인 비주얼에서 보러가기 눌렀을때 main_visual 사라지고 헤더색상 #fee6a660으로 overflow:hidden 풀기
+            $('.main_visual .center_img button').click(function () {
+
+                $('.main_visual').css({
+                    'display': 'none'
+                })
+
+                $('header').css({
+                    'background-color': '#d6bba4ad'
+                })
+
+                $('body').css({
+                    'overflow-y': 'visible'
+                })
+
+                $('header .depth02').css({
+                    'background-color': '#d6bba4ad'
+                })
+
+                $('header .depth02 .depth03').css({
+                    'background-color': '#d6bba4ad'
+                })
+
+            });
+
+
+            //cont01 탭메뉴 버튼 눌렀을때 해당하는 list 나오기
+            $('.cont01 .cont01_menu li').click(function () {
+
+                $('.cont01 .inner .list').removeClass('on');
+                $('.cont01 .inner .list').eq($(this).index()).addClass('on');
+
+            });
+
+
+
+            //cont02 우측 사진에 mouseenter하면 해당 이미지 소스가 좌측 큰 이미지로 나타나기
+            $('.cont02 .right .right_inner .right_left figure').mouseenter(function () {
+                $('.cont02 .left .cont02_img img').attr('src', 'img/엠포리아 코튼.jpg');
+            })
+
+            $('.cont02 .right .right_inner .right_center .fir').mouseenter(function () {
+                $('.cont02 .left .cont02_img img').attr('src', 'img/런드리 디퓨저.jpg');
+            })
+
+            $('.cont02 .right .right_inner .right_center .sec').mouseenter(function () {
+                $('.cont02 .left .cont02_img img').attr('src', 'img/세인트모리츠 핸드워시.jpg');
+            })
+
+            $('.cont02 .right .right_inner .right_right figure').mouseenter(function () {
+                $('.cont02 .left .cont02_img img').attr('src', 'img/히페리온.jpg');
+            })
+
+            //cont04 탭메뉴 버튼 눌렀을때 해당하는 list 나오기
+            $('.cont04 .cont04_menu li').click(function () {
+
+                $('.cont04 .list').removeClass('on');
+                $('.cont04 .list').eq($(this).index()).addClass('on');
+
+            });
+
+        });//jQuery end */
+
+    </script>
+
+</head>
+
+<body>
+
+    <div id="wrap">
+
+        <header>
+
+            <div class="inner">
+                <h1><a href="#">YOUSSOFUL</a></h1>
+
+                <nav class="pc">
+                    <ul class="gnb">
+                        <li class="depth01">
+                            <a href="#">Store</a>
+                            <ul class="depth02">
+                                <li>
+                                    <a href="#">익스트레 드 퍼퓸</a>
+                                    <ul class="depth03">
+                                        <li><a href="#">레드</a></li>
+                                        <li><a href="#">블루</a></li>
+                                        <li><a href="#">그린</a></li>
+                                        <li><a href="#">블랙</a></li>
+                                    </ul><!-- .depth03 end -->
+                                </li>
+                                <li>
+                                    <a href="#">홈 프래그런스</a>
+                                    <ul class="depth03">
+                                        <li><a href="#">하우스 디퓨저</a></li>
+                                        <li><a href="#">하우스 캔들</a></li>
+                                    </ul><!-- .depth03 end -->
+                                </li>
+                                <li><a href="#">핸드워시</a></li>
+                                <li><a href="#">쇼핑백</a></li>
+                            </ul><!-- .depth02 end -->
+                        </li><!-- .depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">Brand</a>
+                        </li><!-- .depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">Support</a>
+                            <ul class="depth02">
+                                <li><a href="#">공지사항</a></li>
+                                <li><a href="#">문의</a></li>
+                                <li><a href="#">리뷰</a></li>
+                                <li><a href="#">이벤트</a></li>
+                                <li><a href="#">시향지</a></li>
+                            </ul><!-- .depth02 end -->
+                        </li><!-- .depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">Offline shop</a>
+                        </li><!-- .depth01 end -->
+
+                    </ul><!-- gnb end -->
+                </nav><!-- .pc end -->
+
+                <div class="other">
+                    <li><a href="#"><img src="img/white_user.png" alt="로그인"></a></li>
+                    <li><a href="#"><img src="img/white_cart.png" alt="장바구니"></a></li>
+                    <li><a href="#" onclick="return false;"><img src="img/icons8-수색-50.png" alt="검색"></a></li>
+                </div><!-- .other end -->
+            </div><!-- .inner end -->
+
+        </header>
+
+        <main>
+
+            <div class="search_tap_bg">
+                <div class="search_tap">
+                    <input type="text" placeholder="'이달의 향'을 검색해보세요.">
+                    <button><img src="img/icons8-수색-50.png" alt="검색"></button>
+                </div>
+            </div>
+
+            <div class="main_visual" display="flex">
+                <div class="scroll_ani">
+                    <span><strong></strong></span>
+                    <p>Scroll ></p>
+                </div><!-- .scroll_ani end -->
+                <div class="main_text">
+
+                    <p>The Scent stays here</p>
+                    <h2>"당신의 향을 이곳에서"</h2>
+
+                </div><!-- .main_text end -->
+                <div class="center_img">
+                    <figure>
+                        <img src="img/main_visual1.png" alt="1">
+                        <img src="img/main_visual2.png" alt="1">
+                        <img src="img/main_visual3.png" alt="1">
+                        <img src="img/main_visual4.png" alt="1">
+
+                        <button>보러가기</button>
+                    </figure>
+                </div><!-- .cetner_img -->
+
+                <div class="paging">
+                    <span class="on"></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div><!-- .paging end -->
+            </div><!-- .main_visual end -->
+
+            <section class="main_visual2">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="img/main_visual2-1.png" alt="">
+                            <div class="text">
+                                <h4>Brand Identity</h4>
+                                <h3>The scent stays here</h3>
+                                <p>좋은 향기는 이성에게 어필하는 것이 아닙니다.</p>
+                                <p>남을 위한 향기가 아닌 나를 위한 향기를 유쏘풀에서 찾아보세요</p>
+                            </div>
+                        </div>
+
+                                                
+                        <div class="swiper-slide">
+                            <img src="img/배너3.png" alt="">
+                        </div>
+                        
+
+                        <div class="swiper-slide">
+                            <img src="img/main_visual2-2.png" alt="">
+                            <div class="text">
+                                <h4>Extrait de parfum</h4>
+                                <h3>익스트레 드 퍼퓸</h3>
+                                <p>최고의 지속력 Extrait de parfum으로</p>
+                                <p>오랜 시간동안 여러분의 곁에 머물 것 입니다.</p>
+                                <a href="#">지금 구매하기</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </section><!-- .main_visual2 end -->
+
+            <section class="cont01">
+                <div class="title">
+                    <h3>Category</h3>
+                    <span>원하는 카테고리를 선택해보세요</span>
+                </div>
+                <ul class="cont01_menu">
+                    <li>향수</li>
+                    <li>디퓨저</li>
+                    <li>핸드워시</li>
+                </ul><!-- .cont01_menu end -->
+
+                <div class="inner">
+                    <div class="list on">
+
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/세인트모리츠.jpg" alt="향수1">
+                                </figure>
+                                <span>레드</span>
+
+                                <h4>세인트 모리츠</h4>
+
+                                <p>향긋한 플로럴 노트와 부드럽고 포근한 머스크와 바닐라 향이 추운 겨울 창문으로 드리우는 따스한 햇살처럼 포근한 향기</p>
+
+                                <div></div>
+
+                                <strong>58,000원</strong>
+                            </a>
+                        </div><!-- item end -->
+
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/리몬첼로 디 아말피.jpg" alt="향수2">
+                                </figure>
+
+                                <span>블루</span>
+
+                                <h4>리몬첼로 디 아말피</h4>
+
+                                <p>진한 레몬 향기와 파인애플의 상큼함 뒤에 조용하게 그리고 묵직하게 올라오는 우디와 머스크함이 매력적인 향기</p>
+
+                                <div></div>
+
+
+                                <strong>58,000원</strong>
+                            </a>
+                        </div><!-- item end -->
+
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/히페리온.jpg" alt="향수3">
+                                </figure>
+
+                                <span>그린</span>
+
+                                <h4>히페리온</h4>
+
+                                <p>아침 공기처럼 맑고 청아한 향기에서 점점 짙어지는 우디향으로 상쾌하고 푸른 자연의 향기가 매력적인 향기</p>
+
+                                <div></div>
+
+                                <strong>58,000원</strong>
+                            </a>
+                        </div><!-- item end -->
+
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/엠포리아 코튼.jpg" alt="향수4">
+                                </figure>
+
+                                <span>블랙</span>
+
+                                <h4>엠포리아 코튼</h4>
+
+                                <p>따뜻한 티 계열의 허브 향과 포근한 샤프론과 스웨이드 향으로 햇살 좋은 오후, 새로 꺼낸 솜 이불의 포근함처럼 생각만 해도 기분이 좋아지는 향기</p>
+
+                                <div></div>
+
+                                <strong>58,000원</strong>
+                            </a>
+                        </div><!-- item end -->
+
+                    </div><!-- .list end -->
+
+                    <div class="list">
+
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/세인트모리츠 디퓨저.jpg" alt="디퓨저1">
+                                </figure>
+
+                                <h4>자연을 담은 디퓨저 세인트 모리츠 150ml</h4>
+
+                                <span>#포근한 향 #머스크 향 #섬유유연제 향</span>
+                                <div></div>
+
+                                <strong>48,000원</strong>
+
+                            </a>
+                        </div><!-- item end -->
+
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/런드리 디퓨저.jpg" alt="디퓨저2">
+                                </figure>
+
+                                <h4>런드리 1510ml</h4>
+
+                                <span>#포근한향 #머스크향 #섬유유연제향</span>
+                                <div></div>
+
+                                <strong>48,000원</strong>
+
+                            </a>
+                        </div><!-- item end -->
+
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/플로라 디퓨저.jpg" alt="디퓨저3">
+                                </figure>
+
+                                <h4>플로라 150ml</h4>
+
+                                <span>#포근한향 #머스크향 #섬유유연제향</span>
+                                <div></div>
+                                <strong>48,000원</strong>
+
+
+                            </a>
+                        </div><!-- item end -->
+
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/다를린 디퓨저.jpg" alt="디퓨저4">
+                                </figure>
+
+                                <h4>자연을 담은 디퓨저 다를린 150ml</h4>
+
+                                <span>#망고향 #구아바향 #과일향 #달달한향</span>
+                                <div></div>
+
+                                <strong>48,000원</strong>
+
+                            </a>
+                        </div><!-- item end -->
+
+                    </div><!-- .list end -->
+
+                    <div class="list">
+
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/세인트모리츠 핸드워시.jpg" alt="핸드워시1">
+                                </figure>
+
+                                <h4>세인트 모리츠 핸드워시 300ml</h4>
+
+                                <span>섬유유연제 같이 깔끔한 머스크 계열 향</span>
+
+                                <div></div>
+
+                                <strong>35,000원</strong>
+                            </a>
+                        </div><!-- item end -->
+
+                    </div><!-- .list end -->
+                </div><!-- .inner end -->
+
+            </section><!-- .cont01 end -->
+
+            <section class="banner">
+                <a href="#">
+                    <img src="img/banner.png" alt="">
+                </a>
+            </section><!-- .banner end -->
+
+            <section class="cont02">
+                <div class="title">
+                    <h3>Best Seller</h3>
+                    <span>많은 사랑을 받은 베스트 셀러를 만나보세요</span>
+                </div><!-- .title end -->
+
+                <div class="inner">
+                    <div class="left">
+                        <div class="bg"></div>
+                        <div class="line"></div>
+                        <div class="cont02_img">
+                            <figure>
+                                <img src="img/엠포리아 코튼.jpg" alt="">
+
+                                <div class="btn">
+                                    <a href="#">shop</a>
+                                </div>
+                            </figure>
+                        </div>
+                    </div><!-- .left end -->
+
+                    <div class="right">
+                        <img src="img/cont02_bg.png" alt="">
+                        <div class="right_inner">
+                            <div class="right_left">
+                                <figure>
+                                    <img src="img/엠포리아 코튼.jpg" alt="">
+                                </figure>
+                            </div>
+
+                            <div class="right_center">
+                                <figure class="fir">
+                                    <img src="img/런드리 디퓨저.jpg" alt="">
+                                </figure>
+                                <figure class="sec">
+                                    <img src="img/세인트모리츠 핸드워시.jpg" alt="">
+                                </figure>
+                            </div>
+
+                            <div class="right_right">
+                                <figure>
+                                    <img src="img/히페리온.jpg" alt="">
+                                </figure>
+                            </div>
+                        </div>
+                    </div><!-- .right end -->
+                </div>
+            </section><!-- .cont02 end -->
+
+            <section class="cont03">
+
+                <div class="left">
+                    <div class="title">
+                        <h3>Fragrance in October</h3>
+                        <p>킹스맨</p>
+                    </div><!-- .title end -->
+
+                    <figure>
+                        <img src="img/킹스맨.jpg" alt="이달의 향수">
+                    </figure>
+
+                    <div class="price">
+                        <del>50,000원</del>
+                        <strong>46,400원 <p>(20%)</p></strong>
+                        <a href="#">Shop</a>
+                    </div><!-- .price end -->
+                </div><!-- .left end -->
+
+                <div class="right">
+                    <div>
+                        <p>가을의 싱그러운 과일의 향과</p>
+                        <p>선선한 바람을 담은</p>
+                        <p><strong>10월의 향을</strong> 가져보세요</p>
+                    </div>
+
+                    <div>
+                        <strong>Top</strong>
+                        <p>무화과, 자몽</p>
+                        <strong>Middle</strong>
+                        <p>작약꽃, 자스민, 바닐라 오키드</p>
+                        <strong>Base</strong>
+                        <p>화이트 머스크</p>
+
+                    </div>
+                </div><!-- .right end -->
+            </section><!-- .cont03 end -->
+
+            <section class="cont04">
+                <div class="title">
+                    <h3>Fragrance for Season</h3>
+                    <span>계절별로 어울리는 향수 추천 해드릴게요</span>
+                </div><!-- .title end -->
+
+                <ul class="cont04_menu">
+                    <li>봄</li>
+                    <li>여름</li>
+                    <li>가을</li>
+                    <li>겨울</li>
+                </ul><!-- .cont04_menu end -->
+
+                <div class="list on">
+                    <a href="#" class="item">
+                        <figure>
+                            <img src="img/세인트모리츠.jpg" alt="봄향수">
+                            <div class="note">
+                                <strong>Top</strong>
+                                <span>무화과, 자몽</span>
+                                <strong>Middle</strong>
+                                <span>작약꽃, 자스민, 바닐라 오키드</span>
+                                <strong>Base</strong>
+                                <span>화이트 머스크</span>
+                            </div><!-- .note end -->
+                        </figure>
+
+                        <p>세인트 모리츠</p>
+
+                        <span>향긋한 플로럴 노트와 부드럽고 포근한 머스크와 바닐라 향이 추운 겨울 창문으로 드리우는 따스한 햇살처럼 포근한 향기</span>
+
+
+
+                    </a><!-- .item end -->
+
+                    <a href="#" class="item">
+                        <figure>
+                            <img src="img/베리섹시.jpg" alt="봄향수">
+                            <div class="note">
+                                <strong>Top</strong>
+                                <span>사과, 딸기</span>
+                                <strong>Middle</strong>
+                                <span>장미</span>
+                                <strong>Base</strong>
+                                <span>바닐라, 휘핑크림 어코드</span>
+                            </div><!-- .note end -->
+                        </figure>
+
+                        <p>베리섹시</p>
+
+                        <span>은은한 로즈향과 부드러운 크림위에 상큼한 사과와 딸기향으로 섹시하면서 귀엽고 사랑스러움이 넘치는 유쏘풀의 시그니쳐 향기</span>
+
+                    </a><!-- .item end -->
+
+                    <a href="#" class="item">
+                        <figure>
+                            <img src="img/버로우런던.jpg" alt="봄향수">
+                            <div class="note">
+                                <strong>Top</strong>
+                                <span>배</span>
+                                <strong>Middle</strong>
+                                <span>프리지아</span>
+                                <strong>Base</strong>
+                                <span>패츌리, 엠버, 우드 노트</span>
+                            </div><!-- .note end -->
+                        </figure>
+
+                        <p>버로우 런던</p>
+
+                        <span>한가득 시원한 배 향으로 시작하여 봄의 향기를 담은 프리지아 향기가 시간이 지날수록 진해지는 예쁜 향기</span>
+
+                    </a><!-- .item end -->
+
+                </div><!-- .list end -->
+                <div class="list">
+                    <a href="#" class="item">
+                        <figure>
+                            <img src="img/리몬첼로 디 아말피.jpg" alt="여름향수">
+
+                            <div class="note">
+                                <strong>Top</strong>
+                                <span>레몬, 베르가못, 사과, 파인애플</span>
+                                <strong>Middle</strong>
+                                <span>자스민, 장미</span>
+                                <strong>Base</strong>
+                                <span>바닐라, 머스크, 엠버, 샌달우드</span>
+                            </div><!-- .note end -->
+                        </figure>
+
+                        <p>리몬첼로 디 아말피</p>
+
+                        <span></span>
+
+                    </a><!-- .item end -->
+
+                    <a href="#" class="item">
+                        <figure>
+                            <img src="img/세이셸.jpg" alt="여름향수">
+                            <div class="note">
+                                <strong>Top</strong>
+                                <span>베르가못, 레몬, 네롤리, 매리골드</span>
+                                <strong>Middle</strong>
+                                <span>자스민, 시클라멘</span>
+                                <strong>Base</strong>
+                                <span>블랙앰버, 머스크, 베티버, 시더우드</span>
+                            </div><!-- .note end -->
+                        </figure>
+
+                        <p>세이셸</p>
+
+                        <span></span>
+
+                    </a><!-- .item end -->
+
+                    <a href="#" class="item">
+                        <figure>
+                            <img src="img/코코하와이.jpg" alt="여름향수">
+                            <div class="note">
+                                <strong>Top</strong>
+                                <span>레몬, 베르가못, 만다린</span>
+                                <strong>Middle</strong>
+                                <span>코코넛 오일, 코코넛, 생강, 자스민</span>
+                                <strong>Base</strong>
+                                <span>사탕수수, 황설탕, 머스크, 럼주</span>
+                            </div><!-- .note end -->
+                        </figure>
+
+                        <p>코코하와이</p>
+
+                        <span></span>
+
+                    </a><!-- .item end -->
+
+                </div><!-- .list end -->
+                <div class="list">
+                    <a href="#" class="item">
+                        <figure>
+                            <img src="img/히페리온.jpg" alt="가을향수">
+                            <div class="note">
+                                <strong>Top</strong>
+                                <span>장미</span>
+                                <strong>Middle</strong>
+                                <span>시더우드</span>
+                                <strong>Base</strong>
+                                <span>베티버, 머스크</span>
+                            </div><!-- .note end -->
+                        </figure>
+
+                        <p>히페리온</p>
+
+                        <span></span>
+
+                    </a><!-- .item end -->
+
+                    <a href="#" class="item">
+                        <figure>
+                            <img src="img/상탈세콰이어.jpg" alt="가을향수">
+
+                            <div class="note">
+                                <strong>Single Note</strong>
+                                <span>가죽 어코드, 샌달욷, 시더우드, 카다멈, 아이리스, 제비꽃, 머스크, 파피루스, 엠브록스</span>
+                            </div><!-- .note end -->
+                        </figure>
+
+                        <p>상탈 세콰이아</p>
+
+                        <span></span>
+
+                    </a><!-- .item end -->
+
+                    <a href="#" class="item">
+                        <figure>
+                            <img src="img/코트다쥐르.jpg" alt="가을향수">
+
+                            <div class="note">
+                                <strong>Single Note</strong>
+                                <span>씨솔트, 세이지, 베르가못, 씨 위드, 머스크</span>
+                            </div><!-- .note end -->
+                        </figure>
+
+                        <p>코트 다쥐르</p>
+
+                        <span></span>
+
+                    </a><!-- .item end -->
+
+                </div><!-- .list end -->
+                <div class="list">
+                    <a href="#" class="item">
+                        <figure>
+                            <img src="img/엠포리아 코튼.jpg" alt="겨울향수">
+                            <div class="note">
+                                <strong>Top</strong>
+                                <span>차, 타임</span>
+                                <strong>Middle</strong>
+                                <span>은방울꽃, 장미, 사프론</span>
+                                <strong>Base</strong>
+                                <span>스웨이드 어코드</span>
+                            </div><!-- .note end -->
+                        </figure>
+
+                        <p>엠포리아 코튼</p>
+
+                        <span></span>
+
+                    </a><!-- .item end -->
+
+                    <a href="#" class="item">
+                        <figure>
+                            <img src="img/부르즈로얄.jpg" alt="겨울향수">
+                            <div class="note">
+                                <strong>Top</strong>
+                                <span>튜베로즈, 클라리 세이지</span>
+                                <strong>Middle</strong>
+                                <span>튜베로즈, 자스민, 일랑 일랑, 벤조인</span>
+                                <strong>Base</strong>
+                                <span>캐시매란, 엠</span>
+                            </div><!-- .note end -->
+                        </figure>
+
+                        <p>부르즈 로얄</p>
+
+                        <span></span>
+
+                    </a><!-- .item end -->
+
+                    <a href="#" class="item">
+                        <figure>
+                            <img src="img/밀란피버.jpg" alt="겨울향수">
+                            <div class="note">
+                                <strong>Single note</strong>
+                                <span>클라리 세이지, 라벤더, 비터아몬드, 통카빈, 오리스, 캐시메란, 가죽 어코드</span>
+                            </div><!-- .note end -->
+                        </figure>
+
+                        <p>밀란피버</p>
+
+                        <span></span>
+
+                    </a><!-- .item end -->
+
+                </div><!-- .list end -->
+            </section><!-- .cont04 end -->
+
+            <section class="cont05">
+                <div class="title">
+                    <h3>Review</h3>
+                    <span>구매자분들의 소중한 리뷰들입니다</span>
+                </div>
+                <div id="carouselTicker-width-resize" class="carouselTicker">
+                    <ul class="carouselTicker__list">
+                        <li class="carouselTicker__item">
+                            <a href="#">
+                                <img src="img/리뷰1.jpeg" alt="">
+                                <h4>이**님</h4>
+                                <p>2ml 함께 넣어주셨는데, 저는 개인적으로 구매한 제품보다 이 fiine 향이 더 취향이였어요. 잔향이 좋아요.</p>
+                            </a>
+                        </li>
+                        <li class="carouselTicker__item">
+                            <a href="#">
+                                <img src="img/리뷰2.jpeg" alt="">
+                                <h4>김**님</h4>
+                                <p>탑노트는 프루티하고 잔향은 머스키해요~ 향이 잔잔해서 부담없고, 재료도 착하다고 해서 잘 쓸것 같아요.</p>
+                            </a>
+                        </li>
+                        <li class="carouselTicker__item">
+                            <a href="#">
+                                <img src="img/리뷰3.jpg" alt="">
+                                <h4>김**님</h4>
+                                <p>유소풀의 모든 향을 맡아보진 않았지만 인위적인향이 아닌것 같아 좋았습니다! 너무 자극적이지 않아 친환경적인 느낌 우선 은은하게 퍼지는 잔향이 정말 좋은것
+                                    같아요!</p>
+                            </a>
+                        </li>
+                        <li class="carouselTicker__item">
+                            <a href="#">
+                                <img src="img/리뷰4.jpeg" alt="">
+                                <h4>황**님</h4>
+                                <p>연남동 오프라인 매장에서 시향해보고 그때부터 계속 이 향만 생각나서 결국 샀어요…점심먹고 시향했는데 저녁에 집갈때까지 시향지에 향이 계속 나서 아른아른
+                                    거리는거 있죠 그만큼 지속력이 오래가네요 너무 만족해여 다른 향들도 하나씩 모으고 싶어요 최고입니당</p>
+                            </a>
+                        </li>
+                        <li class="carouselTicker__item">
+                            <a href="#">
+                                <img src="img/리뷰5.jpg" alt="">
+                                <h4>최**님</h4>
+                                <p>전에 잠실 롯데타워몰 지나가다가 나눠주는 시향지를 우연히 받고 향이 좋아, 너무 빠져서 홈페이지방문부터 구매 까지 오게되었어요. 그때 시향지로 받은 향이
+                                    뭘까싶어서 서치하다가 향 설명 듣고 택했는데 아쉽게도 제가 원하는 향은 아니더라구요..ㅎㅎ 그래도 제가 머스크향을 답답하고 머리가 아파서 싫어하는데
+                                    머리 아프지않고 달달하고 포근한 향이라 무난하게 잘 쓰고있습니다.
+                                    의도하지않은 향이었지만 의외로 좋아서 잘쓰고있어요. 그래도 전에 시향지 받았던 향을 찾고싶어서 시향지 5종 키트도 신청했어요 ㅎㅎ 빨리 원하는 향을
+                                    찾고싶네요!</p>
+                            </a>
+                        </li>
+                        <li class="carouselTicker__item">
+                            <a href="#">
+                                <img src="img/리뷰6.jpeg" alt="">
+                                <h4>서**님</h4>
+                                <p>이거 진짜 첫향이 너무 좋아요 ㅠㅠㅠ 빨리 품절될만한 데에는 이유가 있네요</p>
+                            </a>
+                        </li>
+                        <li class="carouselTicker__item">
+                            <a href="#">
+                                <img src="img/리뷰7.jpeg" alt="">
+                                <h4>박**님</h4>
+                                <p>파르나스몰에서 구매하고 그다음날 같은걸로 또 주문했어요!! 옷에뿌려두면 향기 정말 오래가는편....!!!!고급지고 막 뿌리기좋아서 재구매해요!</p>
+                            </a>
+                        </li>
+                        <li class="carouselTicker__item">
+                            <a href="#">
+                                <img src="img/리뷰8.jpeg" alt="">
+                                <h4>하**님</h4>
+                                <p>팝업스토어에서 이것저것 맡아보다가 너무 좋아서 명함에까지 뿌리고 왔던 향인데 진짜 지속력도 너무 좋고 잔향이 제취향이여서 결국 샀어요ㅎ
+                                    시향한 향이랑 착향한 향이랑은 다를거 같아서 일단 작은 사이즈로 구매해봤고 맘에 들면 큰사이즈로 살려구요</p>
+                            </a>
+                        </li>
+                        <li class="carouselTicker__item">
+                            <a href="#">
+                                <img src="img/리뷰9.jpg" alt="">
+                                <h4>신**님</h4>
+                                <p>유쏘풀 3번째 제품인데 모두 만족스러움. 특히 상탈은 잔향이 강함</p>
+                            </a>
+                        </li>
+                        <li class="carouselTicker__item">
+                            <a href="#">
+                                <img src="img/리뷰10.jpg" alt="">
+                                <h4>정**님</h4>
+                                <p>저번에 휴대용향수를 샀다가 샘플로 온 이향이 너무 게억에 계속 남아서 향수 다쓰자마자 구매했어요!!!!! 정말 조아요ㅠㅠㅠ 향수는 유수플에
+                                    정착할거같아요!!!</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section><!-- .cont05 end -->
+
+        </main>
+
+        <footer>
+            <div class="left">
+                <img src="img/cont02_bg.png" alt="">
+            </div><!-- .left end -->
+
+            <div class="right">
+                <div class="right_top">
+                    <p><strong>회사명</strong> : 유쏘풀 / <strong>대표자</strong> : 유소연 / <strong>사업자등록번호</strong> : 795-34-00613
+                        /
+                        <strong>통신판매업신고번호</strong> : 2020-서울은평-0680호 / <a href="#"> <strong>[사업자정보확인]</strong> </a> /
+                        <strong>고객센터</strong> :
+                        02-6235-0215
+                    </p>
+                    <p><strong>대표 이메일</strong> : eui@youssoful.com / <strong>주소</strong> : 서울특별시 은평구 가좌로256 송지빌딩 지층 /
+                        <strong>개인정보보호책임자</strong> : 고의천
+                    </p>
+                </div>
+                <div class="right_bottom">
+                    <ul>
+                        <li><a href="#">특가</a></li>
+                        <li><a href="#">스토어</a></li>
+                        <li><a href="#">브랜드</a></li>
+                        <li><a href="#">고객지원</a></li>
+                        <li><a href="#">오프라인샵</a></li>
+                    </ul>
+
+                    <h4>유쏘풀(YOUSSOFUL)</h4>
+                </div>
+            </div><!-- .right end -->
+        </footer>
+
+
+
+
+        <script src="lib/jquery-3.5.1.min.js"></script>
+        <script type="text/javascript" src="lib/jquery.carouselTicker.js"></script>
+        <script type="text/javascript" src="lib/start.js"></script>
+
+    </div><!-- #wrap end -->
+
+</body>
+
+</html>
