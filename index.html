@@ -16,7 +16,7 @@
     <script>
         window.onload = () => {
             var swiper = new Swiper(".mySwiper", {
-                spaceBetween: 30,
+                spaceBetween: 0,
                 centeredSlides: true,
                 loop: true,
                 autoplay: {
@@ -255,6 +255,8 @@
             //cont01 탭메뉴 버튼 눌렀을때 해당하는 list 나오기
             $('.cont01 .cont01_menu li').click(function () {
 
+                $('.cont01 .cont01_menu li').removeClass('on');
+                $(this).addClass('on');
                 $('.cont01 .inner .list').removeClass('on');
                 $('.cont01 .inner .list').eq($(this).index()).addClass('on');
 
@@ -282,6 +284,8 @@
             //cont04 탭메뉴 버튼 눌렀을때 해당하는 list 나오기
             $('.cont04 .cont04_menu li').click(function () {
 
+                $('.cont04 .cont04_menu li').removeClass('on');
+                $(this).addClass('on');
                 $('.cont04 .list').removeClass('on');
                 $('.cont04 .list').eq($(this).index()).addClass('on');
 
@@ -305,10 +309,10 @@
                 <nav class="pc">
                     <ul class="gnb">
                         <li class="depth01">
-                            <a href="#">Store</a>
+                            <a href="#"  target="_blank">Store</a>
                             <ul class="depth02">
                                 <li>
-                                    <a href="#">익스트레 드 퍼퓸</a>
+                                    <a href="#" target="_blank">익스트레 드 퍼퓸</a>
                                     <ul class="depth03">
                                         <li><a href="#">레드</a></li>
                                         <li><a href="#">블루</a></li>
@@ -317,23 +321,23 @@
                                     </ul><!-- .depth03 end -->
                                 </li>
                                 <li>
-                                    <a href="#">홈 프래그런스</a>
+                                    <a href="#" target="_blank">홈 프래그런스</a>
                                     <ul class="depth03">
                                         <li><a href="#">하우스 디퓨저</a></li>
                                         <li><a href="#">하우스 캔들</a></li>
                                     </ul><!-- .depth03 end -->
                                 </li>
-                                <li><a href="#">핸드워시</a></li>
-                                <li><a href="#">쇼핑백</a></li>
+                                <li><a href="#" target="_blank">핸드워시</a></li>
+                                <li><a href="#" target="_blank">쇼핑백</a></li>
                             </ul><!-- .depth02 end -->
                         </li><!-- .depth01 end -->
 
                         <li class="depth01">
-                            <a href="#">Brand</a>
+                            <a href="#" target="_blank">Brand</a>
                         </li><!-- .depth01 end -->
 
                         <li class="depth01">
-                            <a href="#">Support</a>
+                            <a href="#" target="_blank">Support</a>
                             <ul class="depth02">
                                 <li><a href="#">공지사항</a></li>
                                 <li><a href="#">문의</a></li>
@@ -411,11 +415,11 @@
                             </div>
                         </div>
 
-                                                
+
                         <div class="swiper-slide">
                             <img src="img/배너3.png" alt="">
                         </div>
-                        
+
 
                         <div class="swiper-slide">
                             <img src="img/main_visual2-2.png" alt="">
@@ -424,7 +428,7 @@
                                 <h3>익스트레 드 퍼퓸</h3>
                                 <p>최고의 지속력 Extrait de parfum으로</p>
                                 <p>오랜 시간동안 여러분의 곁에 머물 것 입니다.</p>
-                                <a href="#">지금 구매하기</a>
+                                <a href="#" target="_blank">지금 구매하기</a>
                             </div>
                         </div>
 
@@ -448,7 +452,7 @@
                     <div class="list on">
 
                         <div class="item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <figure>
                                     <img src="img/세인트모리츠.jpg" alt="향수1">
                                 </figure>
@@ -465,7 +469,7 @@
                         </div><!-- item end -->
 
                         <div class="item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <figure>
                                     <img src="img/리몬첼로 디 아말피.jpg" alt="향수2">
                                 </figure>
@@ -484,7 +488,7 @@
                         </div><!-- item end -->
 
                         <div class="item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <figure>
                                     <img src="img/히페리온.jpg" alt="향수3">
                                 </figure>
@@ -502,7 +506,7 @@
                         </div><!-- item end -->
 
                         <div class="item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <figure>
                                     <img src="img/엠포리아 코튼.jpg" alt="향수4">
                                 </figure>
@@ -524,7 +528,7 @@
                     <div class="list">
 
                         <div class="item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <figure>
                                     <img src="img/세인트모리츠 디퓨저.jpg" alt="디퓨저1">
                                 </figure>
@@ -540,7 +544,7 @@
                         </div><!-- item end -->
 
                         <div class="item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <figure>
                                     <img src="img/런드리 디퓨저.jpg" alt="디퓨저2">
                                 </figure>
@@ -556,7 +560,7 @@
                         </div><!-- item end -->
 
                         <div class="item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <figure>
                                     <img src="img/플로라 디퓨저.jpg" alt="디퓨저3">
                                 </figure>
@@ -572,7 +576,7 @@
                         </div><!-- item end -->
 
                         <div class="item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <figure>
                                     <img src="img/다를린 디퓨저.jpg" alt="디퓨저4">
                                 </figure>
@@ -592,7 +596,7 @@
                     <div class="list">
 
                         <div class="item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <figure>
                                     <img src="img/세인트모리츠 핸드워시.jpg" alt="핸드워시1">
                                 </figure>
@@ -613,7 +617,7 @@
             </section><!-- .cont01 end -->
 
             <section class="banner">
-                <a href="#">
+                <a href="#" target="_blank">
                     <img src="img/banner.png" alt="">
                 </a>
             </section><!-- .banner end -->
@@ -633,7 +637,7 @@
                                 <img src="img/엠포리아 코튼.jpg" alt="">
 
                                 <div class="btn">
-                                    <a href="#">shop</a>
+                                    <a href="#" target="_blank">shop</a>
                                 </div>
                             </figure>
                         </div>
@@ -682,7 +686,7 @@
                     <div class="price">
                         <del>50,000원</del>
                         <strong>46,400원 <p>(20%)</p></strong>
-                        <a href="#">Shop</a>
+                        <a href="#" target="_blank">Shop</a>
                     </div><!-- .price end -->
                 </div><!-- .left end -->
 
@@ -719,7 +723,7 @@
                 </ul><!-- .cont04_menu end -->
 
                 <div class="list on">
-                    <a href="#" class="item">
+                    <a href="#" class="item" target="_blank">
                         <figure>
                             <img src="img/세인트모리츠.jpg" alt="봄향수">
                             <div class="note">
@@ -740,7 +744,7 @@
 
                     </a><!-- .item end -->
 
-                    <a href="#" class="item">
+                    <a href="#" class="item" target="_blank">
                         <figure>
                             <img src="img/베리섹시.jpg" alt="봄향수">
                             <div class="note">
@@ -759,7 +763,7 @@
 
                     </a><!-- .item end -->
 
-                    <a href="#" class="item">
+                    <a href="#" class="item" target="_blank">
                         <figure>
                             <img src="img/버로우런던.jpg" alt="봄향수">
                             <div class="note">
@@ -780,7 +784,7 @@
 
                 </div><!-- .list end -->
                 <div class="list">
-                    <a href="#" class="item">
+                    <a href="#" class="item" target="_blank">
                         <figure>
                             <img src="img/리몬첼로 디 아말피.jpg" alt="여름향수">
 
@@ -800,7 +804,7 @@
 
                     </a><!-- .item end -->
 
-                    <a href="#" class="item">
+                    <a href="#" class="item" target="_blank">
                         <figure>
                             <img src="img/세이셸.jpg" alt="여름향수">
                             <div class="note">
@@ -819,7 +823,7 @@
 
                     </a><!-- .item end -->
 
-                    <a href="#" class="item">
+                    <a href="#" class="item" target="_blank">
                         <figure>
                             <img src="img/코코하와이.jpg" alt="여름향수">
                             <div class="note">
@@ -840,7 +844,7 @@
 
                 </div><!-- .list end -->
                 <div class="list">
-                    <a href="#" class="item">
+                    <a href="#" class="item" target="_blank">
                         <figure>
                             <img src="img/히페리온.jpg" alt="가을향수">
                             <div class="note">
@@ -859,7 +863,7 @@
 
                     </a><!-- .item end -->
 
-                    <a href="#" class="item">
+                    <a href="#" class="item" target="_blank">
                         <figure>
                             <img src="img/상탈세콰이어.jpg" alt="가을향수">
 
@@ -875,7 +879,7 @@
 
                     </a><!-- .item end -->
 
-                    <a href="#" class="item">
+                    <a href="#" class="item" target="_blank">
                         <figure>
                             <img src="img/코트다쥐르.jpg" alt="가을향수">
 
@@ -893,7 +897,7 @@
 
                 </div><!-- .list end -->
                 <div class="list">
-                    <a href="#" class="item">
+                    <a href="#" class="item" target="_blank">
                         <figure>
                             <img src="img/엠포리아 코튼.jpg" alt="겨울향수">
                             <div class="note">
@@ -912,7 +916,7 @@
 
                     </a><!-- .item end -->
 
-                    <a href="#" class="item">
+                    <a href="#" class="item" target="_blank">
                         <figure>
                             <img src="img/부르즈로얄.jpg" alt="겨울향수">
                             <div class="note">
@@ -931,7 +935,7 @@
 
                     </a><!-- .item end -->
 
-                    <a href="#" class="item">
+                    <a href="#" class="item" target="_blank">
                         <figure>
                             <img src="img/밀란피버.jpg" alt="겨울향수">
                             <div class="note">
@@ -957,21 +961,21 @@
                 <div id="carouselTicker-width-resize" class="carouselTicker">
                     <ul class="carouselTicker__list">
                         <li class="carouselTicker__item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <img src="img/리뷰1.jpeg" alt="">
                                 <h4>이**님</h4>
                                 <p>2ml 함께 넣어주셨는데, 저는 개인적으로 구매한 제품보다 이 fiine 향이 더 취향이였어요. 잔향이 좋아요.</p>
                             </a>
                         </li>
                         <li class="carouselTicker__item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <img src="img/리뷰2.jpeg" alt="">
                                 <h4>김**님</h4>
                                 <p>탑노트는 프루티하고 잔향은 머스키해요~ 향이 잔잔해서 부담없고, 재료도 착하다고 해서 잘 쓸것 같아요.</p>
                             </a>
                         </li>
                         <li class="carouselTicker__item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <img src="img/리뷰3.jpg" alt="">
                                 <h4>김**님</h4>
                                 <p>유소풀의 모든 향을 맡아보진 않았지만 인위적인향이 아닌것 같아 좋았습니다! 너무 자극적이지 않아 친환경적인 느낌 우선 은은하게 퍼지는 잔향이 정말 좋은것
@@ -979,7 +983,7 @@
                             </a>
                         </li>
                         <li class="carouselTicker__item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <img src="img/리뷰4.jpeg" alt="">
                                 <h4>황**님</h4>
                                 <p>연남동 오프라인 매장에서 시향해보고 그때부터 계속 이 향만 생각나서 결국 샀어요…점심먹고 시향했는데 저녁에 집갈때까지 시향지에 향이 계속 나서 아른아른
@@ -987,7 +991,7 @@
                             </a>
                         </li>
                         <li class="carouselTicker__item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <img src="img/리뷰5.jpg" alt="">
                                 <h4>최**님</h4>
                                 <p>전에 잠실 롯데타워몰 지나가다가 나눠주는 시향지를 우연히 받고 향이 좋아, 너무 빠져서 홈페이지방문부터 구매 까지 오게되었어요. 그때 시향지로 받은 향이
@@ -998,21 +1002,21 @@
                             </a>
                         </li>
                         <li class="carouselTicker__item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <img src="img/리뷰6.jpeg" alt="">
                                 <h4>서**님</h4>
                                 <p>이거 진짜 첫향이 너무 좋아요 ㅠㅠㅠ 빨리 품절될만한 데에는 이유가 있네요</p>
                             </a>
                         </li>
                         <li class="carouselTicker__item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <img src="img/리뷰7.jpeg" alt="">
                                 <h4>박**님</h4>
                                 <p>파르나스몰에서 구매하고 그다음날 같은걸로 또 주문했어요!! 옷에뿌려두면 향기 정말 오래가는편....!!!!고급지고 막 뿌리기좋아서 재구매해요!</p>
                             </a>
                         </li>
                         <li class="carouselTicker__item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <img src="img/리뷰8.jpeg" alt="">
                                 <h4>하**님</h4>
                                 <p>팝업스토어에서 이것저것 맡아보다가 너무 좋아서 명함에까지 뿌리고 왔던 향인데 진짜 지속력도 너무 좋고 잔향이 제취향이여서 결국 샀어요ㅎ
@@ -1020,14 +1024,14 @@
                             </a>
                         </li>
                         <li class="carouselTicker__item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <img src="img/리뷰9.jpg" alt="">
                                 <h4>신**님</h4>
                                 <p>유쏘풀 3번째 제품인데 모두 만족스러움. 특히 상탈은 잔향이 강함</p>
                             </a>
                         </li>
                         <li class="carouselTicker__item">
-                            <a href="#">
+                            <a href="#" target="_blank">
                                 <img src="img/리뷰10.jpg" alt="">
                                 <h4>정**님</h4>
                                 <p>저번에 휴대용향수를 샀다가 샘플로 온 이향이 너무 게억에 계속 남아서 향수 다쓰자마자 구매했어요!!!!! 정말 조아요ㅠㅠㅠ 향수는 유수플에
@@ -1037,6 +1041,24 @@
                     </ul>
                 </div>
             </section><!-- .cont05 end -->
+
+            <section class="cont06">
+                <h3 class="title">NEWS</h3>
+                <div id="news">
+                </div>
+            </section><!-- .cont06 end -->
+
+
+            <script src="lib/instafeed.min.js"></script>
+
+            <script>
+                var feed = new Instafeed({
+                    target: "news",
+                    template: '<div><a href="{{link}}"><img src="{{image}}" /></a></div>',
+                    accessToken: 'IGQWRQNVN6dHpmZAjktZAFM2dUxwMUFsdVJoTkd5bjdxdjVxMDd3RkF6eFBHbDJ2QlBkUnRKdWdwZAm5GQ3JEdVQ2UUZAlQ2hrS0psOHg1WGhGcjlGVWlRWWNxS0lOY0F3VHpVanF0WlI1WDdMd0VvWnFmX2ZAuVGZAEWjAZD'
+                });
+                feed.run();
+            </script>
 
         </main>
 
@@ -1049,7 +1071,7 @@
                 <div class="right_top">
                     <p><strong>회사명</strong> : 유쏘풀 / <strong>대표자</strong> : 유소연 / <strong>사업자등록번호</strong> : 795-34-00613
                         /
-                        <strong>통신판매업신고번호</strong> : 2020-서울은평-0680호 / <a href="#"> <strong>[사업자정보확인]</strong> </a> /
+                        <strong>통신판매업신고번호</strong> : 2020-서울은평-0680호 / <a href="#" target="_blank"> <strong>[사업자정보확인]</strong> </a> /
                         <strong>고객센터</strong> :
                         02-6235-0215
                     </p>
@@ -1059,11 +1081,11 @@
                 </div>
                 <div class="right_bottom">
                     <ul>
-                        <li><a href="#">특가</a></li>
-                        <li><a href="#">스토어</a></li>
-                        <li><a href="#">브랜드</a></li>
-                        <li><a href="#">고객지원</a></li>
-                        <li><a href="#">오프라인샵</a></li>
+                        <li><a href="#" target="_blank">특가</a></li>
+                        <li><a href="#"  target="_blank">스토어</a></li>
+                        <li><a href="#" target="_blank">브랜드</a></li>
+                        <li><a href="#" target="_blank">고객지원</a></li>
+                        <li><a href="#" target="_blank">오프라인샵</a></li>
                     </ul>
 
                     <h4>유쏘풀(YOUSSOFUL)</h4>
@@ -1071,24 +1093,11 @@
             </div><!-- .right end -->
         </footer>
 
-
-        <div id="instafeed"></div>
-
-
-
-        <script type="text/javascript" src="path/to/instafeed.min.js"></script>
-        <script type="text/javascript">
-            var feed = new Instafeed({
-              accessToken: 'your-token'
-            });
-            feed.run();
-        </script>
-        <script src="lib/jquery-3.5.1.min.js"></script>
-        <script type="text/javascript" src="lib/jquery.carouselTicker.js"></script>
-        <script type="text/javascript" src="lib/start.js"></script>
-
     </div><!-- #wrap end -->
 
+    <script src="lib/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="lib/jquery.carouselTicker.js"></script>
+    <script type="text/javascript" src="lib/start.js"></script>
 </body>
 
 </html>
